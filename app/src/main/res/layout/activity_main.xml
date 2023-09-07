@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:layout_marginTop="150dp"
+        android:text="getETHBalance"
+        android:textAllCaps="false"
+        android:id="@+id/getETHBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_marginTop="30dp"
+        android:text="getERC20Balance"
+        android:textAllCaps="false"
+        android:id="@+id/getERC20Balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_marginTop="30dp"
+        android:text="ETHTransfer"
+        android:textAllCaps="false"
+        android:id="@+id/btn_ETHTransfer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_marginTop="30dp"
+        android:text="ERC20Transfer"
+        android:textAllCaps="false"
+        android:id="@+id/btn_ERC20Transfer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

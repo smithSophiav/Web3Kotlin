@@ -20,14 +20,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/private_key"
         android:hint="privateKey input"
-        android:text="3dvCKD957oW22fs7G6LhXbbRQ7QdLWrvNzUCM8ZAaWJfFxBMJfRPt4CjdFB4qTWtVV7BRjdVnPS7qJagFqZvvaHa"/>
+        android:text="6a0a5b7cf783129266cf1c509eebe05c54e33d5341c7b96fb0b17b4882d7c6da"/>
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/receive_address"
         android:hint="receive address input "
-        android:text="Enx3p7cLUrt4CZeXNvc2hovjir51nN9yn1f81mwVkX7r"/>
+        android:text="0x8A1a6B95bd4749e64d678E5Acc1D04E2A4DFD696"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -39,9 +39,9 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/SPLTokenAddress"
-        android:hint="SPLToken address input"
-        android:text="Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"/>
+        android:id="@+id/erc20Token"
+        android:hint="erc20Token address input"
+        android:text="0xdAC17F958D2ee523a2206206994597C13D831ec7"/>
 
     <TextView
         android:layout_marginTop="40dp"
@@ -53,9 +53,17 @@
 
     <Button
         android:layout_marginTop="20dp"
-        android:text="Get detail in solscan.io"
+        android:text="Get detail in etherscan.io"
         android:textAllCaps="false"
         android:id="@+id/btn_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="estimateTransactionFee"
+        android:textAllCaps="false"
+        android:id="@+id/btn_estimateTransactionFee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -66,5 +74,6 @@
         android:id="@+id/btn_transfer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

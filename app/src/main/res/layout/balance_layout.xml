@@ -20,14 +20,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/address"
         android:hint="address input"
-        android:text="5tzFkiKscXHK5ZXCGbXZxdw7gTjjD1mBwuoFbhUvuAi9"/>
+        android:text="0x2bD47B6fbCb229dDc69534Ac564D93C264F70453"/>
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/SPLTokenAddress"
-        android:hint="SPLToken address input"
-        android:text="Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"/>
+        android:id="@+id/ERC20TokenAddress"
+        android:hint="ERC20Token address input"
+        android:text="0xdAC17F958D2ee523a2206206994597C13D831ec7"/>
 
 
     <TextView

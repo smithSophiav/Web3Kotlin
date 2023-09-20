@@ -4,7 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Button
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="40dp"
+        android:text="generateAccount"
+        android:textAllCaps="false"
+        android:id="@+id/generateAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_marginTop="30dp"
+        android:text="importAccountFromKeystore"
+        android:textAllCaps="false"
+        android:id="@+id/importAccountFromKeystore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_marginTop="30dp"
+        android:text="importAccountFromPrivateKey"
+        android:textAllCaps="false"
+        android:id="@+id/importAccountFromPrivateKey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_marginTop="30dp"
+        android:text="importAccountFromMnemonic"
+        android:textAllCaps="false"
+        android:id="@+id/importAccountFromMnemonic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_marginTop="30dp"
         android:text="getETHBalance"
         android:textAllCaps="false"
         android:id="@+id/getETHBalance"

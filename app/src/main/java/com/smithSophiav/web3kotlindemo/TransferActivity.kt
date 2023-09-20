@@ -81,9 +81,13 @@ class TransferActivity : AppCompatActivity(){
         val amount = amountEditText?.text.toString()
         val senderAddress = "0x2bD47B6fbCb229dDc69534Ac564D93C264F70453"
         if (toAddress.isNotEmpty() && amount.isNotEmpty()) {
-            val onCompleted = {result : Boolean, estimateETHTransactionFee: String ->
+            val onCompleted = {state : Boolean, estimateETHTransactionFee: String,error:String ->
                 this.runOnUiThread {
-                    hashValue?.text = estimateETHTransactionFee + "ETH"
+                    if (state){
+                        hashValue?.text = estimateETHTransactionFee + "ETH"
+                    } else {
+                        hashValue?.text = error
+                    }
                 }
             }
             web3?.estimateETHTransactionFee(toAddress,senderAddress,amount,onCompleted = onCompleted)
@@ -97,9 +101,13 @@ class TransferActivity : AppCompatActivity(){
         val amount = amountEditText?.text.toString()
         val erc20TokenAddress = erc20TokenEditText?.text.toString()
         if (toAddress.isNotEmpty() && amount.isNotEmpty() && erc20TokenAddress.isNotEmpty()) {
-            val onCompleted = {result : Boolean, estimateETHTransactionFee: String ->
+            val onCompleted = {state : Boolean, estimateETHTransactionFee: String,error:String ->
                 this.runOnUiThread {
-                    hashValue?.text = estimateETHTransactionFee + "ETH"
+                    if (state){
+                        hashValue?.text = estimateETHTransactionFee + "ETH"
+                    } else {
+                        hashValue?.text = error
+                    }
                 }
             }
             web3?.estimateERC20TransactionFee(toAddress,senderAddress,amount,erc20TokenAddress,onCompleted = onCompleted)
@@ -121,9 +129,13 @@ class TransferActivity : AppCompatActivity(){
         val toAddress = receiveEditText?.text.toString()
         val amount = amountEditText?.text.toString()
         if (toAddress.isNotEmpty() && amount.isNotEmpty() && privateKey.isNotEmpty()) {
-            val onCompleted = {result : Boolean, txid: String ->
+            val onCompleted = {state : Boolean, txid: String,error:String ->
                 this.runOnUiThread {
-                    hashValue?.text = txid
+                    if (state){
+                        hashValue?.text = txid
+                    } else {
+                        hashValue?.text = error
+                    }
                 }
             }
             web3?.ethTransfer(toAddress,amount,privateKey,onCompleted = onCompleted)
@@ -135,9 +147,13 @@ class TransferActivity : AppCompatActivity(){
         val amount = amountEditText?.text.toString()
         val erc20TokenAddress = erc20TokenEditText?.text.toString()
         if (toAddress.isNotEmpty() && amount.isNotEmpty() && privateKey.isNotEmpty() && erc20TokenAddress.isNotEmpty()) {
-            val onCompleted = {result : Boolean, txid: String ->
+            val onCompleted = {state : Boolean, txid: String,error:String ->
                 this.runOnUiThread {
-                    hashValue?.text = txid
+                    if (state){
+                        hashValue?.text = txid
+                    } else {
+                        hashValue?.text = error
+                    }
                 }
             }
             web3?.erc20TokenTransfer(

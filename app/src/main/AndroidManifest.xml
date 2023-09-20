@@ -27,7 +27,10 @@
         </activity>
         <activity android:name=".GetBalanceActivity"/>
         <activity android:name=".TransferActivity"/>
-
+        <activity android:name=".GenerateAccount"/>
+        <activity android:name=".ImportAccountFromKeystore"/>
+        <activity android:name=".ImportAccountFromMnemonic"/>
+        <activity android:name=".ImportAccountFromPrivateKey"/>
     </application>
 
 </manifest>

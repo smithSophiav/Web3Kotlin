@@ -53,10 +53,14 @@ class GetBalanceActivity : AppCompatActivity(){
     private fun getETHBalance() {
         val address = address?.text.toString()
         if (address.isNotEmpty()) {
-            val onCompleted = {result : Boolean, amount: String ->
+            val onCompleted = {state : Boolean, amount: String,error: String ->
                 this.runOnUiThread {
-                    val  titleTip = if(type == "ETH") "ETH Balance: " else "ERC20Token Balance: "
-                    balance?.text = titleTip + amount
+                    if (state) {
+                        val  titleTip = if(type == "ETH") "ETH Balance: " else "ERC20Token Balance: "
+                        balance?.text = titleTip + amount
+                    } else {
+                        balance?.text = error
+                    }
                 }
             }
             balance?.text = "fetching..."
@@ -68,10 +72,14 @@ class GetBalanceActivity : AppCompatActivity(){
         val address = address?.text.toString()
         val erc20TokenAddress = ERC20TokenAddress?.text.toString()
         if (address.isNotEmpty() && erc20TokenAddress.isNotEmpty()) {
-            val onCompleted = {result : Boolean, amount: String ->
+            val onCompleted = {state : Boolean, amount: String,error: String ->
                 this.runOnUiThread {
-                    val  titleTip = if(type == "ETH") "ETH Balance: " else "ERC20Token Balance: "
-                    balance?.text = titleTip + amount
+                    if (state){
+                        val  titleTip = if(type == "ETH") "ETH Balance: " else "ERC20Token Balance: "
+                        balance?.text = titleTip + amount
+                    } else {
+                        balance?.text = error
+                    }
                 }
             }
             balance?.text = "fetching..."

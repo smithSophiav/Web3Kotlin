@@ -26,6 +26,8 @@ class TransferActivity : AppCompatActivity(){
     private var web3: ETHWeb? = null
     private var mWebView: WebView? = null
     private var type: String = ""
+    private var chainType: String = "main"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transfer_layout)
@@ -50,7 +52,7 @@ class TransferActivity : AppCompatActivity(){
         detailBtn?.setOnClickListener{
             val hash = hashValue?.text.toString()
             if (hash.length < 20) { return@setOnClickListener}
-            val urlString = "https://etherscan.io/tx/$hash"
+            val urlString = if(chainType == "main") "https://etherscan.io/tx/$hash" else "https://goerli.etherscan.io/tx/$hash"
             try {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -138,7 +140,9 @@ class TransferActivity : AppCompatActivity(){
                     }
                 }
             }
-            web3?.ethTransfer(toAddress,amount,privateKey,onCompleted = onCompleted)
+            val providerUrl = if(chainType == "main") ETHMainNet else "https://goerli.infura.io/v3/fe816c09404d406f8f47af0b78413806"
+
+            web3?.ethTransfer(toAddress,amount,privateKey,providerUrl = providerUrl,onCompleted = onCompleted)
         }
     }
     private fun erc20TokenTransfer() {
@@ -170,6 +174,7 @@ class TransferActivity : AppCompatActivity(){
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
             type = bundle.getString("type") ?: ""
+            chainType = bundle.getString("chainType") ?: ""
             title?.text = if (type == "ETH") "ETH Transfer" else "ERC20Token Transfer"
             if (type == "ETH") {
                 erc20TokenEditText?.setVisibility(View.GONE)

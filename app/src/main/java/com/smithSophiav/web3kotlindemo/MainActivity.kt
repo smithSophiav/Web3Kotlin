@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private var generateAccountBtn: Button? = null
@@ -14,6 +15,9 @@ class MainActivity : AppCompatActivity() {
     private var getERC20Balance: Button? = null
     private var ETHTransferBtn: Button? = null
     private var ERC20TransferBtn: Button? = null
+    private var changeIntoMainChainBtn: Button? = null
+    private var changeIntoGoerliChainBtn: Button? = null
+    private var chainType: String = "main"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         getERC20Balance = findViewById(R.id.getERC20Balance)
         ETHTransferBtn = findViewById(R.id.btn_ETHTransfer)
         ERC20TransferBtn = findViewById(R.id.btn_ERC20Transfer)
-
+        changeIntoMainChainBtn = findViewById(R.id.mainChain)
+        changeIntoGoerliChainBtn = findViewById(R.id.goerliChain)
         generateAccountBtn?.setOnClickListener{
             generateAccount()
         }
@@ -55,6 +60,18 @@ class MainActivity : AppCompatActivity() {
         ERC20TransferBtn?.setOnClickListener{
             transfer(type = "ERC20Token")
         }
+        changeIntoMainChainBtn?.setOnClickListener{
+            chainType = "main"
+            val toast = Toast.makeText(applicationContext, "Changed into MainNet", Toast.LENGTH_SHORT)
+            // 显示Toast消息
+            toast.show()
+        }
+        changeIntoGoerliChainBtn?.setOnClickListener{
+            chainType = "goerli"
+            val toast = Toast.makeText(applicationContext, "Changed into GoerliNet", Toast.LENGTH_SHORT)
+            // 显示Toast消息
+            toast.show()
+        }
     }
     private fun generateAccount(){
         val intent = Intent(this@MainActivity, GenerateAccount::class.java)
@@ -76,12 +93,14 @@ class MainActivity : AppCompatActivity() {
     private fun getBalance(type: String){
         val intent = Intent(this@MainActivity, GetBalanceActivity::class.java)
         intent.putExtra("type", type)
+        intent.putExtra("chainType", chainType)
         startActivity(intent)
     }
 
     private fun transfer(type: String){
         val intent = Intent(this@MainActivity, TransferActivity::class.java)
         intent.putExtra("type", type)
+        intent.putExtra("chainType", chainType)
         startActivity(intent)
     }
 }

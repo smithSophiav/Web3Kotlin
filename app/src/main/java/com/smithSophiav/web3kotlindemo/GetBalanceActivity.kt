@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.smithsophiav.web3kotlin.ETHMainNet
 import com.smithsophiav.web3kotlin.ETHWeb
 
 class GetBalanceActivity : AppCompatActivity(){
@@ -18,6 +19,8 @@ class GetBalanceActivity : AppCompatActivity(){
     private var mWebView: WebView? = null
     private var web3: ETHWeb? = null
     private var type: String = ""
+    private var chainType: String = "main"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +67,8 @@ class GetBalanceActivity : AppCompatActivity(){
                 }
             }
             balance?.text = "fetching..."
-            web3?.getETHBalance(address,onCompleted = onCompleted)
+            val providerUrl = if(chainType == "main") ETHMainNet else "https://goerli.infura.io/v3/fe816c09404d406f8f47af0b78413806"
+            web3?.getETHBalance(address,providerUrl,onCompleted = onCompleted)
         }
     }
     @SuppressLint("SetTextI18n")
@@ -91,6 +95,7 @@ class GetBalanceActivity : AppCompatActivity(){
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
             type = bundle.getString("type") ?: ""
+            chainType = bundle.getString("chainType") ?: ""
             title?.text = if (type == "ETH") "GET ETH Balance" else "GET ERC20Token Balance"
             if (type == "ETH") {
                 ERC20TokenAddress?.setVisibility(View.GONE)

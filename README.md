@@ -3,7 +3,7 @@
 
 ![language](https://img.shields.io/badge/Language-Kotlin-green)
 ![jitpack](https://img.shields.io/badge/support-jitpack-green)
-![jitpack](https://img.shields.io/badge/support-goerli-green)
+![jitpack](https://img.shields.io/badge/support-sepolia-green)
 
 
 ![](Resource/Demo02.png)

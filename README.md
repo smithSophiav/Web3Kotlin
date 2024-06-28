@@ -19,7 +19,7 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 dependencies {
-    implementation 'com.github.smithSophiav:Web3Kotlin:1.0.1'
+    implementation 'com.github.smithSophiav:Web3Kotlin:1.0.2'
 }
 ```
 
@@ -107,6 +107,28 @@ val onCompleted = {state : Boolean, address: String,privateKey: String,keystore:
 walletDetailEditText?.setText("Import Accounting.......")
 web3?.importAccountFromMnemonic(mnemonic,password,onCompleted = onCompleted)
 ```
+##### Estimate Fee with Send ETH
+```Kotlin
+val toAddress = receiveEditText?.text.toString()
+val amount = amountEditText?.text.toString()
+val senderAddress = "0x6648Ee1bc5a10856D72b197cC9bA23B7002AA8F1"
+if (toAddress.isNotEmpty() && amount.isNotEmpty()) {
+val onCompleted = {state : Boolean,
+                   estimateETHTransactionFee: String,
+                   gasEstimate:String,
+                   gasPrice:String,
+                   error:String ->
+    this.runOnUiThread {
+        if (state){
+            hashValue?.text = estimateETHTransactionFee + "ETH"
+        } else {
+            hashValue?.text = error
+        }
+    }
+}
+val providerUrl = if(chainType == "main") ETHMainNet else "https://sepolia.infura.io/v3/fe816c09404d406f8f47af0b78413806"
+web3?.estimateETHTransactionFee(toAddress,senderAddress,amount,providerUrl,onCompleted = onCompleted)
+```
 
 ##### Send ETH
 ```Kotlin
@@ -121,6 +143,28 @@ val onCompleted = {state : Boolean, txid: String,error:String ->
 }
 web3?.ethTransfer(toAddress,amount,privateKey,onCompleted = onCompleted)
 ```
+##### Estimate Fee with Send ERC20Token
+```Kotlin
+val toAddress = receiveEditText?.text.toString()
+val senderAddress = "0x6648Ee1bc5a10856D72b197cC9bA23B7002AA8F1"
+val amount = amountEditText?.text.toString()
+val erc20TokenAddress = erc20TokenEditText?.text.toString()
+if (toAddress.isNotEmpty() && amount.isNotEmpty() && erc20TokenAddress.isNotEmpty()) {
+val onCompleted = {state : Boolean, estimateETHTransactionFee: String,
+                   gasEstimate:String,
+                   gasPrice:String,
+                   error:String ->
+    this.runOnUiThread {
+        if (state){
+            hashValue?.text = estimateETHTransactionFee + "ETH"
+        } else {
+            hashValue?.text = error
+        }
+    }
+}
+web3?.estimateERC20TransactionFee(toAddress,senderAddress,amount,erc20TokenAddress,onCompleted = onCompleted)
+```
+
 ##### Send ERC20Token
 ```Kotlin
 val onCompleted = {state : Boolean, txid: String,error:String ->

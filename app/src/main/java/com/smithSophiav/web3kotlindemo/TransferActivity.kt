@@ -52,7 +52,7 @@ class TransferActivity : AppCompatActivity(){
         detailBtn?.setOnClickListener{
             val hash = hashValue?.text.toString()
             if (hash.length < 20) { return@setOnClickListener}
-            val urlString = if(chainType == "main") "https://etherscan.io/tx/$hash" else "https://goerli.etherscan.io/tx/$hash"
+            val urlString = if(chainType == "main") "https://etherscan.io/tx/$hash" else "https://sepolia.etherscan.io/tx/$hash"
             try {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -81,9 +81,13 @@ class TransferActivity : AppCompatActivity(){
     private fun estimateETHTransactionFee() {
         val toAddress = receiveEditText?.text.toString()
         val amount = amountEditText?.text.toString()
-        val senderAddress = "0x2bD47B6fbCb229dDc69534Ac564D93C264F70453"
+        val senderAddress = "0x6648Ee1bc5a10856D72b197cC9bA23B7002AA8F1"
         if (toAddress.isNotEmpty() && amount.isNotEmpty()) {
-            val onCompleted = {state : Boolean, estimateETHTransactionFee: String,error:String ->
+            val onCompleted = {state : Boolean,
+                               estimateETHTransactionFee: String,
+                               gasEstimate:String,
+                               gasPrice:String,
+                               error:String ->
                 this.runOnUiThread {
                     if (state){
                         hashValue?.text = estimateETHTransactionFee + "ETH"
@@ -92,18 +96,23 @@ class TransferActivity : AppCompatActivity(){
                     }
                 }
             }
-            web3?.estimateETHTransactionFee(toAddress,senderAddress,amount,onCompleted = onCompleted)
+            val providerUrl = if(chainType == "main") ETHMainNet else "https://sepolia.infura.io/v3/fe816c09404d406f8f47af0b78413806"
+
+            web3?.estimateETHTransactionFee(toAddress,senderAddress,amount,providerUrl,onCompleted = onCompleted)
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun estimateERC20TransactionFee() {
         val toAddress = receiveEditText?.text.toString()
-        val senderAddress = "0x2bD47B6fbCb229dDc69534Ac564D93C264F70453"
+        val senderAddress = "0x6648Ee1bc5a10856D72b197cC9bA23B7002AA8F1"
         val amount = amountEditText?.text.toString()
         val erc20TokenAddress = erc20TokenEditText?.text.toString()
         if (toAddress.isNotEmpty() && amount.isNotEmpty() && erc20TokenAddress.isNotEmpty()) {
-            val onCompleted = {state : Boolean, estimateETHTransactionFee: String,error:String ->
+            val onCompleted = {state : Boolean, estimateETHTransactionFee: String,
+                               gasEstimate:String,
+                               gasPrice:String,
+                               error:String ->
                 this.runOnUiThread {
                     if (state){
                         hashValue?.text = estimateETHTransactionFee + "ETH"
@@ -132,6 +141,7 @@ class TransferActivity : AppCompatActivity(){
         val amount = amountEditText?.text.toString()
         if (toAddress.isNotEmpty() && amount.isNotEmpty() && privateKey.isNotEmpty()) {
             val onCompleted = {state : Boolean, txid: String,error:String ->
+                println("ethTransfer Finished.")
                 this.runOnUiThread {
                     if (state){
                         hashValue?.text = txid
@@ -140,9 +150,10 @@ class TransferActivity : AppCompatActivity(){
                     }
                 }
             }
-            val providerUrl = if(chainType == "main") ETHMainNet else "https://goerli.infura.io/v3/fe816c09404d406f8f47af0b78413806"
-
-            web3?.ethTransfer(toAddress,amount,privateKey,providerUrl = providerUrl,onCompleted = onCompleted)
+            val providerUrl = if(chainType == "main") ETHMainNet else "https://sepolia.infura.io/v3/fe816c09404d406f8f47af0b78413806"
+            val gasLimit = 21000
+            web3?.ethTransfer(toAddress,amount,privateKey,gasLimit,providerUrl = providerUrl,onCompleted = onCompleted)
+            println("ethTransfer start.")
         }
     }
     private fun erc20TokenTransfer() {
@@ -152,6 +163,7 @@ class TransferActivity : AppCompatActivity(){
         val erc20TokenAddress = erc20TokenEditText?.text.toString()
         if (toAddress.isNotEmpty() && amount.isNotEmpty() && privateKey.isNotEmpty() && erc20TokenAddress.isNotEmpty()) {
             val onCompleted = {state : Boolean, txid: String,error:String ->
+                println("erc20TokenTransfer Finished.")
                 this.runOnUiThread {
                     if (state){
                         hashValue?.text = txid
@@ -160,14 +172,17 @@ class TransferActivity : AppCompatActivity(){
                     }
                 }
             }
+            val gasLimit = 100000
             web3?.erc20TokenTransfer(
                 amount,
                 privateKey,
                 toAddress,
+                gasLimit,
                 decimal= 6.0,
                 providerUrl = ETHMainNet,
                 erc20ContractAddress = erc20TokenAddress,
                 onCompleted = onCompleted)
+            println("erc20TokenTransfer start.")
         }
     }
     private fun getData() {

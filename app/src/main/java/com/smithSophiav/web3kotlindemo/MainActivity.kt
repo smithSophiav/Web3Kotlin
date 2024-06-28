@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private var ETHTransferBtn: Button? = null
     private var ERC20TransferBtn: Button? = null
     private var changeIntoMainChainBtn: Button? = null
-    private var changeIntoGoerliChainBtn: Button? = null
+    private var changeIntoSepoliaChainBtn: Button? = null
     private var chainType: String = "main"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         ETHTransferBtn = findViewById(R.id.btn_ETHTransfer)
         ERC20TransferBtn = findViewById(R.id.btn_ERC20Transfer)
         changeIntoMainChainBtn = findViewById(R.id.mainChain)
-        changeIntoGoerliChainBtn = findViewById(R.id.goerliChain)
+        changeIntoSepoliaChainBtn = findViewById(R.id.sepoliaChain)
         generateAccountBtn?.setOnClickListener{
             generateAccount()
         }
@@ -66,9 +66,9 @@ class MainActivity : AppCompatActivity() {
             // 显示Toast消息
             toast.show()
         }
-        changeIntoGoerliChainBtn?.setOnClickListener{
-            chainType = "goerli"
-            val toast = Toast.makeText(applicationContext, "Changed into GoerliNet", Toast.LENGTH_SHORT)
+        changeIntoSepoliaChainBtn?.setOnClickListener{
+            chainType = "sepolia"
+            val toast = Toast.makeText(applicationContext, "Changed into SepoliaNet", Toast.LENGTH_SHORT)
             // 显示Toast消息
             toast.show()
         }

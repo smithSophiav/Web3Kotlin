@@ -67,7 +67,7 @@ class GetBalanceActivity : AppCompatActivity(){
                 }
             }
             balance?.text = "fetching..."
-            val providerUrl = if(chainType == "main") ETHMainNet else "https://goerli.infura.io/v3/fe816c09404d406f8f47af0b78413806"
+            val providerUrl = if(chainType == "main") ETHMainNet else "https://sepolia.infura.io/v3/fe816c09404d406f8f47af0b78413806"
             web3?.getETHBalance(address,providerUrl,onCompleted = onCompleted)
         }
     }

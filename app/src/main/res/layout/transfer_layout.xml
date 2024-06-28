@@ -20,14 +20,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/private_key"
         android:hint="privateKey input"
-        android:text="6a0a5b7cf783129266cf1c509eebe05c54e33d5341c7b96fb0b17b4882d7c6da"/>
+        android:text="6e6fc8e1b12d1075e5df6f3eb0c2010827f7ad18632c4434791cf25d3d4d38d8"/>
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/receive_address"
         android:hint="receive address input "
-        android:text="0x8A1a6B95bd4749e64d678E5Acc1D04E2A4DFD696"/>
+        android:text="0x6648Ee1bc5a10856D72b197cC9bA23B7002AA8F1"/>
 
     <EditText
         android:layout_width="fill_parent"

@@ -22,9 +22,9 @@
             android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/goerliChain"
+            android:id="@+id/sepoliaChain"
             android:textAllCaps="false"
-            android:text="goerli" />
+            android:text="sepolia" />
     </LinearLayout>
 
     <Button

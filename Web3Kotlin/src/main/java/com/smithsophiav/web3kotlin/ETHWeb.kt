@@ -188,11 +188,13 @@ public class ETHWeb(context: Context, _webView: WebView) {
     public fun ethTransfer(recipientAddress: String,
                            amount: String,
                            senderPrivateKey: String,
+                           gasLimit:Int = 21000,
                            providerUrl: String = ETHMainNet,
                                      onCompleted: (Boolean,String,String) -> Unit) {
         val data = java.util.HashMap<String, Any>()
         data["recipientAddress"] = recipientAddress
         data["amount"] = amount
+        data["gasLimit"] = gasLimit
         data["providerUrl"] = providerUrl
         data["senderPrivateKey"] = senderPrivateKey
         bridge.call("ETHTransfer", data, object : Callback {
@@ -214,6 +216,7 @@ public class ETHWeb(context: Context, _webView: WebView) {
     public fun erc20TokenTransfer(amount: String,
                                   senderPrivateKey: String,
                                   recipientAddress:String,
+                                  gasLimit:Int = 100000,
                                   decimal:Double = 6.0,
                                   providerUrl: String = ETHMainNet,
                                   erc20ContractAddress: String = ERC20TokenUSDT,
@@ -224,6 +227,7 @@ public class ETHWeb(context: Context, _webView: WebView) {
         data["senderPrivateKey"] = senderPrivateKey
         data["contractAddress"] = erc20ContractAddress
         data["amount"] = amount
+        data["gasLimit"] = gasLimit
         data["decimal"] = decimal
         bridge.call("ERC20Transfer", data, object : Callback {
             override fun call(map: HashMap<String, Any>?){
@@ -246,7 +250,7 @@ public class ETHWeb(context: Context, _webView: WebView) {
                                          senderAddress: String,
                                          amount: String,
                            providerUrl: String = ETHMainNet,
-                           onCompleted: (Boolean,String,String) -> Unit) {
+                           onCompleted: (Boolean,String,String,String,String) -> Unit) {
         val data = java.util.HashMap<String, Any>()
         data["recipientAddress"] = recipientAddress
         data["providerUrl"] = providerUrl
@@ -260,10 +264,12 @@ public class ETHWeb(context: Context, _webView: WebView) {
                 val state =  map!!["state"] as Boolean
                 if (state) {
                     val estimateTransactionFee = map["estimateTransactionFee"] as String
-                    onCompleted(state,estimateTransactionFee,"")
+                    val gasEstimate = map["gasEstimate"] as String
+                    val gasPrice = map["gasPrice"] as String
+                    onCompleted(state,estimateTransactionFee,gasEstimate,gasPrice,"")
                 } else {
                     val error = map["error"] as String
-                    onCompleted(state,"",error)
+                    onCompleted(state,"","","",error)
                 }
             }
         })
@@ -273,13 +279,15 @@ public class ETHWeb(context: Context, _webView: WebView) {
                                            senderAddress: String,
                                            amount: String,
                                            contractAddress:String,
+                                           gasLimit:Int = 100000,
                                            decimal: Double = 6.0,
                                            providerUrl: String = ETHMainNet,
-                                           onCompleted: (Boolean,String,String) -> Unit) {
+                                           onCompleted: (Boolean,String,String,String,String) -> Unit) {
         val data = java.util.HashMap<String, Any>()
         data["recipientAddress"] = recipientAddress
         data["providerUrl"] = providerUrl
         data["senderAddress"] = senderAddress
+        data["gasLimit"] = gasLimit
         data["amount"] = amount
         data["decimal"] = decimal
         data["contractAddress"] = contractAddress
@@ -291,10 +299,11 @@ public class ETHWeb(context: Context, _webView: WebView) {
                 val state =  map!!["state"] as Boolean
                 if (state) {
                     val estimateTransactionFee = map["estimateTransactionFee"] as String
-                    onCompleted(state,estimateTransactionFee,"")
-                } else {
+                    val gasEstimate = map["gasEstimate"] as String
+                    val gasPrice = map["gasPrice"] as String
+                    onCompleted(state,estimateTransactionFee,gasEstimate,gasPrice,"")                } else {
                     val error = map["error"] as String
-                    onCompleted(state,"",error)
+                    onCompleted(state,"","","",error)
                 }
             }
         })

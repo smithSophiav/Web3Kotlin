@@ -6,7 +6,7 @@
 ![jitpack](https://img.shields.io/badge/support-goerli-green)
 
 
-![](Resource/Demo01.png)
+![](Resource/Demo02.png)
 
 For more specific usage, please refer to the [demo](https://github.com/smithSophiav/Web3Kotlin/tree/master/app)
 

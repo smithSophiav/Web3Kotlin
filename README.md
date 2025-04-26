@@ -190,4 +190,5 @@ For more specific usage, please refer to the [demo](https://github.com/smithSoph
 
 ## License
 
+
 Web3Kotlin is released under the MIT license. [See LICENSE](https://github.com/smithSophiav/Web3Kotlin/blob/master/LICENSE) for details.
